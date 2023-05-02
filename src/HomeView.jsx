@@ -9,6 +9,7 @@ function HomeView() {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.countryReducer.filteredData);
   const isLoading = useSelector(state=>state.loaderReducer.isLoading)
+  const error = useSelector(state=>state.loaderReducer.error)
   useEffect(() => {
     dispatch(handleData());
   }, []);
@@ -26,12 +27,13 @@ function HomeView() {
       <div>{isLoading ? <div>
         <Loader />
       </div> : null}</div>
+      {error ? <div>{error.toString()}</div> :null}
       <div className="row gap-2 justify-content-center">
-          {data && !isLoading
+          {data.length>0 && !isLoading
             ? data.map((country, index) => (
                 <CountryItem country={country} key={index} />
               ))
-            : null}
+            : <div>Nothing found..</div>}
       </div>
     </div>
   );

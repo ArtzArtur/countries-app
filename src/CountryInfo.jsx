@@ -12,30 +12,29 @@ function CountryInfo() {
   },[id])
   const data = useSelector(state=>state.infoReducer.dataInfo)
   const isLoading = useSelector(state=>state.loaderReducer.isLoading)
-  
-  
+  const error = useSelector(state=>state.loaderReducer.error)
   return (
     <div className="container-md" style={{"height":"80vh"}}>
       <div className="row p-4">
         
         <div className="col-12">
-        <button className="btn btn-light shadow-sm" onClick={()=>navigate('/')}>Go back</button>
+        <button className="btn btn-outline-success shadow-sm" onClick={()=>navigate('/')}>Go back</button>
 
         </div>
 
         </div>
-        {isLoading ? <div>
-          <Loader />
-        </div> :null}
+        {isLoading ?
+          <Loader /> :null}
+          {error ? <div>{error.toString()}</div> :null}
           {data && !isLoading ? data.map((info,index)=>
-      <div className="row shadow-lg p-2"  key={index}>
-          <div className="col-12 col-md-4">
+      <div className="row shadow-lg p-2 justify-content-center align-items-center"  key={index}>
+          <div className={`col-12 ${info.borders ? 'col-md-4' : 'col-md-6' }`}>
             <h1 className="display-5 py-2">
             {info.name.common}
             </h1>
             <img src={info.flags.png} className="img-fluid pb-2" alt="flag image" />
           </div>
-          <div className="col-12 col-md-4">
+          <div className={`col-12 ${info.borders ? 'col-md-4' : 'col-md-6' }`}>
             <p>Popultion: {info.population}</p>
             {info.capital ? <p>Capital: {info.capital[0]}</p>:null}
             <p>Region: {info.region}</p>
@@ -60,10 +59,14 @@ function CountryInfo() {
 
               </div>
           </div>
-              <div className="col-12 col-md-3">
-                {info.borders ? <p className="w-100 text-center">Borders:</p>:null}
+              <div className="col-12 col-md-3" style={
+                {display:"grid",gridTemplateColumns:"repeat(2,1fr)"}
+                
+                }>
+                {info.borders ? <div style={{width:"100%",gridColumn:"span 2",textAlign:"center"}}>Borders:</div>:null}
                 {info.borders ? Object.values(info.borders).map((border,index)=>
-                  <Link to={`/CountryInfo/${border}`} className="text-center text-muted rounded m-1 d-block" key={index}>{border}</Link>
+                  <Link to={`/CountryInfo/${border}`} className="text-center btn btn-outline-secondary m-1" key={index}>{border}</Link>
+
                 ) :null}
               </div>
       </div>

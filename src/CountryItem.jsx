@@ -7,7 +7,7 @@ function CountryItem({ country }) {
       className="p-3 col-10 col-md-4 col-lg-2 text-decoration-none border">
           <div className="card border-0">
   <div className="card-body">
-    <h5 className="card-title">{country.name.common}</h5>
+    <h5 className="card-title text-success">{country.name.common}</h5>
   </div>
   <img src={country.flags.png} className="card-img-top border border-1" alt="Flag image" />
 </div>

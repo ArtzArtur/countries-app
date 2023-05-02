@@ -1,4 +1,4 @@
-import loader from "../src/loader.css"
+import loader from "./assets/loader.css"
 
 function Loader() {
   return (

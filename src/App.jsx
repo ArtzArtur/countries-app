@@ -5,7 +5,7 @@ import CountryInfo from './CountryInfo'
 function App() {
   return (
     <div className='text-center'>
-      <header className='bg-success p-2 text-light'>
+      <header className='bg-success py-5 text-light'>
         <h1>Countries App</h1>
       </header>
       <Routes>
